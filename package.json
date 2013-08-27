@@ -1,0 +1,17 @@
+{
+  "name": "asciify_yourself",
+  "description": "Booking dojo app",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/fazibear/asciify_youtself.git"
+  },
+  "dependencies": {
+    "socket.io": "*",
+    "node-static": "*"
+  },
+  "devDependencies": {
+    "grunt-contrib-coffee": "*",
+    "grunt-contrib-watch": "*"
+  }
+}
