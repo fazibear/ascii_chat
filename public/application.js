@@ -107,7 +107,7 @@
       return setTimeout(draw, 100);
     };
     setTimeout(draw, 100);
-    socket = io.connect('http://localhost:8080');
+    socket = io.connect();
     socket.on('count', function(data) {
       return countSpan.innerHTML = data['count'];
     });

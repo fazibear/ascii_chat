@@ -30,7 +30,7 @@ window.onload = ->
     setTimeout(draw, 100)
   setTimeout(draw, 100)
 
-  socket = io.connect 'http://localhost:8080'
+  socket = io.connect() # 'http://localhost:8080'
   socket.on 'count', (data) ->
     countSpan.innerHTML = data['count']
   socket.on 'message', (data) ->
