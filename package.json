@@ -9,7 +9,7 @@
   "dependencies": {
     "socket.io": "*",
     "node-static": "*",
-    "coffee": "*"
+    "coffee-script": "*"
   },
   "devDependencies": {
     "grunt-contrib-coffee": "*",
