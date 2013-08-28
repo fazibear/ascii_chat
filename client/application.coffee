@@ -1,4 +1,11 @@
 window.onload = ->
+ 
+  sendButton = document.getElementById 'send'
+  youPre = document.getElementById 'you'
+  chatPre = document.getElementById 'chat'
+  countSpan = document.getElementById 'count'
+  messageInput = document.getElementById 'message'
+
   webcam = new Webcam()
   asciify = new Asciify()
   
@@ -19,7 +26,24 @@ window.onload = ->
       catch error
         console.log error
       finally
-        document.getElementById('you').innerHTML = asciify.process ctx
+        youPre.innerHTML = asciify.process ctx
     setTimeout(draw, 100)
   setTimeout(draw, 100)
 
+  socket = io.connect 'http://localhost:8080'
+  socket.on 'count', (data) ->
+    countSpan.innerHTML = data['count']
+  socket.on 'message', (data) ->
+    chatPre.innerHTML = asciify.formatMessage data['message'], data['ascii'] + chatPre.innerHTML
+  
+  sendMessage = ->
+    unless messageInput.value == ''
+      socket.emit 'message',
+        message: messageInput.value
+        ascii: youPre.innerHTML
+    messageInput.value = ''
+  
+  sendButton.addEventListener 'click', sendMessage
+  messageInput.addEventListener 'keypress', (event) ->
+    if event.keyCode == 13
+      sendMessage()

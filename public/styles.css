@@ -17,3 +17,8 @@ pre {
   padding: 0px;
   text-align: center;
 }
+
+pre#chat {
+  height: 100%;
+  overflow-y: scroll;
+}

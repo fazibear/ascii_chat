@@ -21,3 +21,6 @@ class Asciify
         outputString += charList[charIndex]
       outputString += "\n"
     outputString
+
+  formatMessage: (message, ascii) ->
+    msg = "\n" + message + "\n" + ascii + "\n"

@@ -9,8 +9,7 @@ server = require('http').createServer (request, response) ->
 io = require('socket.io').listen(server)
 
 io.sockets.on 'connection', (socket) ->
-  socket.emit 'news', { hello: 'world' }
-  socket.on 'my other event', (data) ->
-    console.log(data)
-
+  socket.emit 'count', { count: io.sockets.clients().length }
+  socket.on 'message', (data) ->
+    io.sockets.emit 'message', data
 server.listen 8080

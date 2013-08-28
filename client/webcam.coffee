@@ -1,12 +1,12 @@
 class Webcam
   constructor: ->
-    vendorURL = window.URL || windon.webkitURL
-    navigator.getMedia = navigator.getUserMedia ||
+    vendorURL = window.URL || window.webkitURL
+    @getMedia = navigator.getMedia = navigator.getUserMedia ||
                navigator.webkitGetUserMedia ||
                navigator.mozGetUserMedia ||
                navigator.msGetUserMedia
     
-    video = document.createElement 'video'
+    @video = video = document.createElement 'video'
     video.setAttribute 'autoplay' , '1'
     video.setAttribute 'width', '320px'
     video.setAttribute 'height', '240px'
@@ -27,7 +27,9 @@ class Webcam
       (error) ->
         console.log error
     )
-    @video = video
 
   getVideo: ->
     @video
+
+  isSupported: ->
+    @getMedia != 'undefined'

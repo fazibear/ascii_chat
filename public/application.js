@@ -4,9 +4,9 @@
   Webcam = (function() {
     function Webcam() {
       var vendorURL, video;
-      vendorURL = window.URL || windon.webkitURL;
-      navigator.getMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-      video = document.createElement('video');
+      vendorURL = window.URL || window.webkitURL;
+      this.getMedia = navigator.getMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+      this.video = video = document.createElement('video');
       video.setAttribute('autoplay', '1');
       video.setAttribute('width', '320px');
       video.setAttribute('height', '240px');
@@ -25,11 +25,14 @@
       }, function(error) {
         return console.log(error);
       });
-      this.video = video;
     }
 
     Webcam.prototype.getVideo = function() {
       return this.video;
+    };
+
+    Webcam.prototype.isSupported = function() {
+      return this.getMedia !== 'undefined';
     };
 
     return Webcam;
@@ -62,12 +65,22 @@
       return outputString;
     };
 
+    Asciify.prototype.formatMessage = function(message, ascii) {
+      var msg;
+      return msg = "\n" + message + "\n" + ascii + "\n";
+    };
+
     return Asciify;
 
   })();
 
   window.onload = function() {
-    var asciify, canvas, ctx, draw, height, webcam, width;
+    var asciify, canvas, chatPre, countSpan, ctx, draw, height, messageInput, sendButton, sendMessage, socket, webcam, width, youPre;
+    sendButton = document.getElementById('send');
+    youPre = document.getElementById('you');
+    chatPre = document.getElementById('chat');
+    countSpan = document.getElementById('count');
+    messageInput = document.getElementById('message');
     webcam = new Webcam();
     asciify = new Asciify();
     width = 80;
@@ -88,12 +101,34 @@
           error = _error;
           console.log(error);
         } finally {
-          document.getElementById('you').innerHTML = asciify.process(ctx);
+          youPre.innerHTML = asciify.process(ctx);
         }
       }
       return setTimeout(draw, 100);
     };
-    return setTimeout(draw, 100);
+    setTimeout(draw, 100);
+    socket = io.connect('http://localhost:8080');
+    socket.on('count', function(data) {
+      return countSpan.innerHTML = data['count'];
+    });
+    socket.on('message', function(data) {
+      return chatPre.innerHTML = asciify.formatMessage(data['message'], data['ascii'] + chatPre.innerHTML);
+    });
+    sendMessage = function() {
+      if (messageInput.value !== '') {
+        socket.emit('message', {
+          message: messageInput.value,
+          ascii: youPre.innerHTML
+        });
+      }
+      return messageInput.value = '';
+    };
+    sendButton.addEventListener('click', sendMessage);
+    return messageInput.addEventListener('keypress', function(event) {
+      if (event.keyCode === 13) {
+        return sendMessage();
+      }
+    });
   };
 
 }).call(this);
