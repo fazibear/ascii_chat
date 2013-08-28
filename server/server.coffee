@@ -12,4 +12,4 @@ io.sockets.on 'connection', (socket) ->
   socket.emit 'count', { count: io.sockets.clients().length }
   socket.on 'message', (data) ->
     io.sockets.emit 'message', data
-server.listen 8080
+server.listen process.env.PORT or 8080
