@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "socket.io": "*",
-    "node-static": "*"
+    "node-static": "*",
+    "coffee": "*"
   },
   "devDependencies": {
     "grunt-contrib-coffee": "*",
