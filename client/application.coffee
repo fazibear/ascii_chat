@@ -19,7 +19,7 @@ window.onload = ->
       catch error
         console.log error
       finally
-        document.getElementById('cos').innerHTML = asciify.process ctx
-    setTimeout(draw, 1000)
-  setTimeout(draw, 1000)
+        document.getElementById('you').innerHTML = asciify.process ctx
+    setTimeout(draw, 100)
+  setTimeout(draw, 100)
 

@@ -1,7 +1,19 @@
+body {
+  
+}
+
+.column {
+  float: left;
+  width: 50%
+}
+
 pre {
   font-size: 8px;
-  border: 1px solid red;
-  width: 400px;
-  height: 360px;
+  width: 100%;
   overflow: hidden;
+  word-break: none;
+  word-wrap: none;
+  line-height: 1;
+  padding: 0px;
+  text-align: center;
 }

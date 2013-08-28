@@ -88,12 +88,12 @@
           error = _error;
           console.log(error);
         } finally {
-          document.getElementById('cos').innerHTML = asciify.process(ctx);
+          document.getElementById('you').innerHTML = asciify.process(ctx);
         }
       }
-      return setTimeout(draw, 1000);
+      return setTimeout(draw, 100);
     };
-    return setTimeout(draw, 1000);
+    return setTimeout(draw, 100);
   };
 
 }).call(this);
